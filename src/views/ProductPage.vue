@@ -1,49 +1,63 @@
 <template>
-  <h1>Product Page</h1>
+  <div id="page-wrap">
+    <div class="grid-wrap">
+      <div class="product-item" v-for="product in products" :key="product.id">
+        <img :src="product.imageUrl" alt="Product Image" />
+        <h3 class="product-name">{{ product.name }}</h3>
+        <p class="product-price">${{ product.price }}</p>
+        <router-link :to="'/products/' + product.id">
+          <button>View Details</button>
+        </router-link>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
+import { products } from "../fake-data";
+
 export default {
   name: "ProductsPage",
+  data: function () {
+    return {
+      products,
+    };
+  },
 };
 </script>
 <style scoped>
-h1 {
-  border-bottom: 1px solid black;
-  margin: 0;
-  margin-top: 16px;
-  padding: 16px;
-}
-
-#total-price {
-  padding: 16px;
-  text-align: right;
-}
-
-#checkout-button {
-  width: 100%;
-}
-
-.product-container {
-  align-content: "center";
-  border-bottom: 1px solid #ddd;
+.grid-wrap {
   display: flex;
-  padding: 16px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.product-item {
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px #888;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2%;
+  padding: 20px;
+  position: relative;
+  width: 32%;
+}
+
+.product-name {
+  margin-bottom: 0;
+}
+
+img {
+  height: 200px;
+  width: 200px;
+}
+
+a {
   width: 100%;
 }
 
-.product-image {
-  flex: 1;
-  height: 100px;
-  max-width: 100px;
-}
-
-.details-wrap {
-  padding: 0 16px;
-  flex: 3;
-}
-
-.remove-button {
-  flex: 1;
-  margin: auto;
+button {
+  width: 100%;
 }
 </style>
